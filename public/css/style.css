@@ -1,0 +1,34 @@
+/* Pricing Plan ke Neeche Wala WhatsApp Button (Theme Matched) */
+.card-choose-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: rgba(255, 77, 0, 0.1);
+  border: 1px solid #ff4d00;
+  color: #fff;
+  padding: 13px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.card-choose-btn:hover {
+  background: #ff4d00;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3);
+}
+
+.card-choose-btn svg {
+  fill: #ff4d00;
+  transition: fill 0.3s ease;
+}
+
+.card-choose-btn:hover svg {
+  fill: #fff;
+}
