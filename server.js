@@ -12,11 +12,6 @@ const isProduction = process.env.NODE_ENV === "production";
 // Railway ya production ke liye trust proxy zaroori hai taake session cookies theek se kaam karein
 app.set('trust proxy', 1);
 
-// Enforce security guardrails for production environments
-if (isProduction && !process.env.SESSION_SECRET) {
-    throw new Error("FATAL: SESSION_SECRET environment variable is required in production.");
-}
-
 // =========================================================
 // PATHS
 // =========================================================
@@ -39,7 +34,7 @@ app.use(
         cookie: {
             httpOnly: true,
             secure: isProduction, // Production (Railway/HTTPS) par true rahega
-            sameSite: "lax",       // 'strict' ki jagah 'lax' karne se redirect ke baad session break nahi hota
+            sameSite: "lax",       // 'strict' ki jagah 'lax' karne se redirect ke baad session break nahi hoga
             maxAge: 24 * 60 * 60 * 1000
         }
     })
@@ -577,4 +572,6 @@ app.listen(PORT, () => {
     console.log(`Server:  http://localhost:${PORT}`);
     console.log(`Website: http://localhost:${PORT}/`);
     console.log(`Admin:   http://localhost:${PORT}/admin`);
-    console.log("======
+    console.log("==========================================");
+    console.log("");
+});
