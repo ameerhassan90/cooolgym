@@ -6,7 +6,7 @@ const path = require("path");
 const crypto = require("crypto");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const isProduction = process.env.NODE_ENV === "production";
 
 // Enforce security guardrails for production environments
@@ -528,7 +528,7 @@ app.delete("/api/testimonials/:id", requireAdmin, async (req, res) => {
         data.testimonials = data.testimonials.filter(t => String(t.id) !== String(req.params.id));
 
         if (data.testimonials.length === initialLength) {
-            return res.status(404).json({ success: false, message: "Testimonial not found." });
+            return res.status(404).json({ success: false, number: 404, message: "Testimonial not found." });
         }
 
         await writeData(data);
