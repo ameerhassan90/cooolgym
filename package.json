@@ -4,8 +4,7 @@
   "description": "FORGE FITNESS CLUB website and admin management system",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node server.js"
   },
   "keywords": [
     "gym",
@@ -20,8 +19,6 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.2.1",
-    "express-session": "^1.18.2",
-    "helmet": "^8.1.0"
+    "express-session": "^1.18.2"
   }
 }
