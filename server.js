@@ -521,7 +521,7 @@ app.post("/api/testimonials", requireAdmin, async (req, res) => {
     }
 });
 
-app.delete("/api/testimonials/:id", requireAdmin, async (req, res) => {
+app.delete("/api/testimonials/:id", requireAdmin, async (req, res)ad => {
     try {
         const data = await readData();
         const initialLength = (data.testimonials || []).length;
