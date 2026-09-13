@@ -213,9 +213,9 @@ textarea{resize:vertical;min-height:90px;}
           <input type="text" id="trainer-role" placeholder="e.g. Head Coach" required>
         </div>
         <div class="form-group full">
-          <label for="trainer-image">Image URL</label>
-          <input type="url" id="trainer-image" placeholder="https://example.com/trainer.jpg">
-        </div>
+    <label for="trainer-image">Upload Trainer Image</label>
+    <input type="file" id="trainer-image" name="imageFile" accept="image/*">
+</div>
         <div class="form-group full">
           <label for="trainer-bio">Bio</label>
           <textarea id="trainer-bio" placeholder="Write trainer bio..."></textarea>
@@ -726,7 +726,41 @@ programForm.addEventListener("submit", async function(e){
     saveProgramBtn.textContent = "Update Program";
   }
 });
+document.getElementById('trainer-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const id = document.getElementById('trainer-id').value;
+    const formData = new FormData();
+    formData.append("name", document.getElementById('trainer-name').value);
+    formData.append("role", document.getElementById('trainer-role').value);
+    formData.append("bio", document.getElementById('trainer-bio').value || "");
+    
+    const fileInput = document.getElementById('trainer-image');
+    if (fileInput.files[0]) {
+        formData.append("imageFile", fileInput.files[0]);
+    }
 
+    const url = id ? `/api/trainers/${id}` : '/api/trainers';
+    const method = id ? 'PUT' : 'POST';
+
+    try {
+        const response = await fetch(url, {
+            method: method,
+            body: formData
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            alert("Trainer saved successfully!");
+            location.reload();
+        } else {
+            alert(result.message || "Error saving trainer.");
+        }
+    } catch (err) {
+        console.error("Error:", err);
+        alert("Something went wrong.");
+    }
+});
 // Initial Auth Check
 async function checkAuth(){
   try{
