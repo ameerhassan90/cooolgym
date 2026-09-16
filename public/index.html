@@ -4,23 +4,166 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FORGE FITNESS CLUB</title>
-  
-  <!-- Google Fonts & External Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Master Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #060913; color: #fff; font-family: "Outfit", sans-serif; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1180px, 92%); margin: auto; }
+    
+    /* Navigation */
+    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: rgba(6, 9, 19, 0.92); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 25px; font-weight: 900; letter-spacing: 1px; }
+    .logo span { color: #ff4d00; }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { font-size: 15px; font-weight: 600; color: #d9dce5; transition: 0.25s; }
+    .nav-links a:hover { color: #ff5a00; }
+    .admin-link { padding: 10px 17px; border: 1px solid #ff4d00; border-radius: 8px; color: #fff !important; cursor: pointer; }
+    .admin-link:hover { background: #ff4d00; }
+    .menu-btn { display: none; border: 0; background: none; color: white; font-size: 28px; cursor: pointer; }
+    
+    /* Hero Section */
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; background: linear-gradient(90deg, rgba(4,7,15,.96) 0%, rgba(4,7,15,.82) 45%, rgba(4,7,15,.35) 100%), url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=90&w=1800") center/cover no-repeat; }
+    .hero-content { max-width: 720px; padding-top: 80px; }
+    .hero-tag { display: inline-block; color: #ff5a00; font-size: 14px; font-weight: 800; letter-spacing: 3px; margin-bottom: 18px; }
+    .hero h1 { font-size: clamp(48px, 8vw, 92px); line-height: .95; font-weight: 900; letter-spacing: -3px; margin-bottom: 25px; }
+    .hero h1 span { color: #ff4d00; }
+    .hero p { max-width: 650px; color: #d2d5df; font-size: 18px; margin-bottom: 32px; }
+    .buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 23px; border-radius: 8px; font-weight: 800; transition: .25s; }
+    .btn-primary { background: #ff4d00; color: white; }
+    .btn-primary:hover { background: #ff6500; transform: translateY(-2px); }
+    .btn-secondary { border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.04); }
+    .btn-secondary:hover { background: rgba(255,255,255,.1); }
+    
+    /* Stats Section */
+    .stats { border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); background: #0a0e18; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat { padding: 28px 15px; text-align: center; border-right: 1px solid rgba(255,255,255,.08); }
+    .stat:last-child { border-right: 0; }
+    .stat strong { display: block; font-size: 30px; font-weight: 900; color: #ff4d00; }
+    .stat span { color: #aeb4c2; font-size: 14px; }
+    
+    /* Content Sections */
+    .section { padding: 100px 0; }
+    .section-heading { max-width: 700px; margin-bottom: 50px; }
+    .eyebrow { color: #ff4d00; font-size: 13px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+    .section-heading h2 { font-size: clamp(35px, 5vw, 58px); line-height: 1; margin-bottom: 18px; }
+    .section-heading p { color: #aeb4c2; font-size: 16px; }
+    
+    /* Cards Layout */
+    #trainers { scroll-margin-top: 90px; background: #080c15; }
+    .trainer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+    .trainer-card { background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 15px; overflow: hidden; transition: .3s; }
+    .trainer-card:hover { transform: translateY(-6px); border-color: rgba(255,77,0,.5); }
+    .trainer-image { width: 100%; height: 390px; object-fit: cover; }
+    .trainer-info { padding: 25px; }
+    .trainer-info h3 { font-size: 25px; margin-bottom: 4px; }
+    .trainer-role { color: #ff4d00; font-weight: 700; font-size: 14px; margin-bottom: 13px; }
+    .trainer-bio { color: #aeb4c2; font-size: 15px; }
+    
+    #why-forge { scroll-margin-top: 90px; }
+    .why-grid, .program-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .why-card, .program-card { padding: 30px; background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; }
+    .why-number { font-size: 14px; color: #ff4d00; font-weight: 900; margin-bottom: 18px; }
+    .why-card h3, .program-card h3 { font-size: 23px; margin-bottom: 10px; }
+    .why-card p, .program-card p { color: #aeb4c2; font-size: 15px; }
+    
+    .pricing-section { background: #080c15; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .price-card { padding: 32px; background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 15px; display: flex; flex-direction: column; justify-content: space-between; }
+    .price-card.featured { border-color: #ff4d00; transform: translateY(-7px); }
+    .price-card h3 { font-size: 23px; margin-bottom: 15px; }
+    .price { font-size: 32px; font-weight: 900; color: #ff4d00; margin-bottom: 22px; }
+    .features { list-style: none; margin-bottom: 25px; }
+    .features li { color: #c4c8d1; margin: 10px 0; padding-left: 20px; position: relative; font-size: 14px; }
+    .features li::before { content: "✓"; color: #ff4d00; position: absolute; left: 0; font-weight: 900; }
+    
+    .card-choose-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      background: rgba(255, 77, 0, 0.1); border: 1px solid #ff4d00; color: #fff;
+      padding: 13px 20px; border-radius: 8px; font-weight: 700; font-size: 15px;
+      transition: all 0.3s ease; margin-top: auto;
+    }
+    .card-choose-btn:hover { background: #ff4d00; color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3); }
+
+    /* 3D ANIMATED ADMIN LOGIN MODAL STYLING */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(4, 7, 15, 0.85); backdrop-filter: blur(10px);
+      display: none; align-items: center; justify-content: center; z-index: 2000;
+    }
+    .modal-overlay.active { display: flex; }
+    .admin-modal {
+      background: #101521; border: 1px solid rgba(255,77,0,0.4);
+      padding: 40px; border-radius: 16px; width: min(420px, 90%);
+      position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      text-align: center;
+    }
+    .admin-modal h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; color: #fff; }
+    .admin-modal p.admin-subtitle { color: #aeb4c2; font-size: 14px; margin-bottom: 25px; }
+    .close-modal {
+      position: absolute; top: 15px; right: 20px; font-size: 26px;
+      color: #aeb4c2; cursor: pointer; background: none; border: none;
+    }
+    .character-avatar {
+      width: 65px; height: 65px; background: #ff4d00; border-radius: 50%;
+      margin: 0 auto 18px; display: flex; align-items: center;
+      justify-content: center; transition: transform 0.3s ease;
+      box-shadow: 0 0 15px rgba(255,77,0,0.4);
+    }
+    .character-avatar .eyes { display: flex; gap: 10px; }
+    .character-avatar .eye {
+      width: 8px; height: 8px; background: #fff; border-radius: 50%;
+      transition: transform 0.2s ease;
+    }
+    .character-avatar.peek-down { transform: translateY(8px); }
+    .character-avatar.look-away { transform: rotate(180deg); }
+    
+    .admin-form input {
+      width: 100%; padding: 14px 16px; background: #060913; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; color: #fff; margin-bottom: 16px; font-family: inherit; outline: none; font-size: 15px;
+    }
+    .admin-form input:focus { border-color: #ff4d00; }
+    .admin-form button {
+      width: 100%; padding: 14px; background: #ff4d00; border: none;
+      border-radius: 8px; color: #fff; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.25s;
+    }
+    .admin-form button:hover { background: #ff6500; box-shadow: 0 4px 15px rgba(255, 77, 0, 0.4); }
+
+    /* Contact & Footer */
+    #contact { scroll-margin-top: 90px; }
+    .contact-box { background: linear-gradient(135deg, rgba(255,77,0,.12), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 45px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .contact-box h2 { font-size: 42px; line-height: 1; margin-bottom: 15px; }
+    .contact-details { display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+    .contact-item span { display: block; color: #ff4d00; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    .contact-item strong { font-size: 17px; }
+    footer { padding: 30px 0; border-top: 1px solid rgba(255,255,255,.08); color: #777e8d; font-size: 14px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    
+    @media (max-width: 850px) {
+      .menu-btn { display: block; }
+      .nav-links { display: none; position: absolute; top: 78px; left: 0; width: 100%; padding: 20px; flex-direction: column; align-items: flex-start; background: #080c15; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .nav-links.active { display: flex; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: 0; }
+      .trainer-grid, .program-grid, .pricing-grid, .why-grid, .contact-box { grid-template-columns: 1fr; }
+      .price-card.featured { transform: none; }
+      .trainer-image { height: 350px; }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Navigation Bar -->
   <nav>
     <div class="container nav-inner">
       <a href="#home" class="logo">FORGE <span>FITNESS</span></a>
-      <button class="menu-btn" id="menu-btn" aria-label="Toggle Navigation Menu">☰</button>
+      <button class="menu-btn" id="menu-btn">☰</button>
       <div class="nav-links" id="nav-links">
         <a href="#home">Home</a>
         <a href="#trainers">Trainers</a>
@@ -28,13 +171,11 @@
         <a href="#programs">Programs</a>
         <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
-        <a href="#login-section" class="admin-link">Admin Login</a>
+        <a id="open-admin" class="admin-link">Admin Login</a>
       </div>
     </div>
   </nav>
-
   <main id="home">
-    <!-- Hero Section -->
     <section class="hero">
       <div class="container">
         <div class="hero-content">
@@ -49,17 +190,15 @@
       </div>
     </section>
 
-    <!-- Key Metrics Stats -->
     <section class="stats">
       <div class="container stats-grid">
-        <div class="stat"><strong id="trainer-stat">—</strong><span>Professional Trainers</span></div>
+        <div class="stat"><strong id="trainer-stat">4+</strong><span>Professional Trainers</span></div>
         <div class="stat"><strong>24/7</strong><span>Access Available</span></div>
         <div class="stat"><strong>100%</strong><span>Commitment</span></div>
         <div class="stat"><strong>1</strong><span>Strong Community</span></div>
       </div>
     </section>
 
-    <!-- Trainers Team Section -->
     <section class="section" id="trainers">
       <div class="container">
         <div class="section-heading">
@@ -67,13 +206,10 @@
           <h2>Meet The Trainers</h2>
           <p>Experienced coaches who are here to help you train smarter, build strength and stay consistent.</p>
         </div>
-        <div class="trainer-grid" id="trainer-grid">
-          <div class="loading">Loading trainers...</div>
-        </div>
+        <div class="trainer-grid" id="trainer-grid"></div>
       </div>
     </section>
 
-    <!-- Core Features Section -->
     <section class="section" id="why-forge">
       <div class="container">
         <div class="section-heading">
@@ -89,7 +225,6 @@
       </div>
     </section>
 
-    <!-- Programs Grid Section -->
     <section class="section" id="programs">
       <div class="container">
         <div class="section-heading">
@@ -97,13 +232,10 @@
           <h2>Train With Purpose.</h2>
           <p>Choose the training approach that matches your goals.</p>
         </div>
-        <div class="program-grid" id="program-grid">
-          <div class="loading">Loading programs...</div>
-        </div>
+        <div class="program-grid" id="program-grid"></div>
       </div>
     </section>
 
-    <!-- Pricing / Membership Grid -->
     <section class="section pricing-section" id="pricing">
       <div class="container">
         <div class="section-heading">
@@ -111,57 +243,10 @@
           <h2>Choose Your Level.</h2>
           <p>Straightforward memberships for different training needs.</p>
         </div>
-        <div class="pricing-grid" id="pricing-grid">
-          <div class="loading">Loading membership plans...</div>
-        </div>
+        <div class="pricing-grid" id="pricing-grid"></div>
       </div>
     </section>
 
-    <!-- Interactive Admin Login Section (With Animated Bag Character) -->
-    <section class="section" id="login-section">
-      <div class="container flex-center">
-        <!-- Interactive Animated Character Layer -->
-        <div class="character-wrapper" id="characterWrapper">
-          <div class="character" id="character">
-            <div class="character-head">
-              <div class="eyes">
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-              </div>
-            </div>
-            <div class="character-body"></div>
-          </div>
-        </div>
-
-        <!-- Login Card Form -->
-        <div class="login-card">
-          <div class="brand-header">
-            <h1>FORGE <span class="highlight">FITNESS</span></h1>
-            <p class="subtitle">Admin Dashboard Login</p>
-          </div>
-
-          <form id="loginForm">
-            <div class="input-box">
-              <label for="username">Username</label>
-              <input type="text" id="username" placeholder="Enter username" required autocomplete="off">
-            </div>
-
-            <div class="input-box">
-              <label for="password">Password</label>
-              <input type="password" id="password" placeholder="Enter password" required>
-            </div>
-
-            <button type="submit" class="submit-btn">Login</button>
-          </form>
-
-          <div class="success-banner" id="successBanner">
-            <span>SUCCESS! Welcome Back</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact & Location Box -->
     <section class="section" id="contact">
       <div class="container">
         <div class="contact-box">
@@ -180,18 +265,148 @@
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- 3D ANIMATED ADMIN LOGIN MODAL -->
+  <div class="modal-overlay" id="admin-modal">
+    <div class="admin-modal">
+      <button class="close-modal" id="close-admin">&times;</button>
+      
+      <div class="character-avatar" id="character-avatar">
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+      </div>
+
+      <h3>Admin Portal Login</h3>
+      <p class="admin-subtitle">Enter credentials to access management dashboard</p>
+
+      <form class="admin-form" id="admin-login-form">
+        <input type="text" id="username" placeholder="Username / Admin ID" required autocomplete="off">
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Access Dashboard</button>
+      </form>
+    </div>
+  </div>
+
   <footer>
     <div class="container footer-inner">
-      <div>© <span id="year">2026</span> FORGE FITNESS CLUB</div>
+      <div>© <span id="year"></span> FORGE FITNESS CLUB</div>
       <div>Train Hard. Stay Strong.</div>
     </div>
   </footer>
 
-  <!-- Floating Action WhatsApp CTA -->
-  <a href="https://wa.me/923398831031?text=Hello%20Forge%20Fitness" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">💬</a>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navigation Toggle
+      const menuBtn = document.getElementById("menu-btn");
+      const navLinks = document.getElementById("nav-links");
+      if (menuBtn && navLinks) {
+        menuBtn.addEventListener("click", () => navLinks.classList.toggle("active"));
+        document.querySelectorAll(".nav-links a").forEach(link => {
+          link.addEventListener("click", () => navLinks.classList.remove("active"));
+        });
+      }
 
-  <!-- Integrated Application Logic Script -->
-  <script src="script.js"></script>
+      // Admin Modal & Interactive 3D Avatar Animations
+      const openAdminBtn = document.getElementById('open-admin');
+      const closeAdminBtn = document.getElementById('close-admin');
+      const adminModal = document.getElementById('admin-modal');
+      const characterAvatar = document.getElementById('character-avatar');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+
+      if (openAdminBtn && adminModal && closeAdminBtn) {
+        openAdminBtn.addEventListener('click', () => adminModal.classList.add('active'));
+        closeAdminBtn.addEventListener('click', () => adminModal.classList.remove('active'));
+        adminModal.addEventListener('click', (e) => {
+          if (e.target === adminModal) adminModal.classList.remove('active');
+        });
+      }
+
+      if (usernameInput && characterAvatar) {
+        usernameInput.addEventListener('focus', () => {
+          characterAvatar.classList.add('peek-down');
+          characterAvatar.classList.remove('look-away');
+        });
+        usernameInput.addEventListener('blur', () => characterAvatar.classList.remove('peek-down'));
+      }
+
+      if (passwordInput && characterAvatar) {
+        passwordInput.addEventListener('focus', () => {
+          characterAvatar.classList.add('look-away');
+          characterAvatar.classList.remove('peek-down');
+        });
+        passwordInput.addEventListener('blur', () => characterAvatar.classList.remove('look-away'));
+      }
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+      loadWebsiteData();
+    });
+
+    async function loadWebsiteData() {
+      try {
+        const response = await fetch("/api/data");
+        if (!response.ok) return;
+        const data = await response.json();
+
+        if (data.site) {
+          if (data.site.description) document.getElementById("hero-description").textContent = data.site.description;
+          if (data.site.email) document.getElementById("contact-email").textContent = data.site.email;
+          if (data.site.phone) document.getElementById("contact-phone").textContent = data.site.phone;
+          if (data.site.address) document.getElementById("contact-address").textContent = data.site.address;
+        }
+
+        const trainerGrid = document.getElementById("trainer-grid");
+        if (trainerGrid && Array.isArray(data.trainers)) {
+          trainerGrid.innerHTML = "";
+          data.trainers.forEach(trainer => {
+            const card = document.createElement("div");
+            card.className = "trainer-card";
+            card.innerHTML = `
+              <img src="${trainer.image || 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=800'}" alt="${trainer.name}" class="trainer-image">
+              <div class="trainer-info">
+                <h3>${trainer.name}</h3>
+                <div class="trainer-role">${trainer.role}</div>
+                <p class="trainer-bio">${trainer.bio || ''}</p>
+              </div>
+            `;
+            trainerGrid.appendChild(card);
+          });
+        }
+
+        const programGrid = document.getElementById("program-grid");
+        if (programGrid && Array.isArray(data.programs)) {
+          programGrid.innerHTML = "";
+          data.programs.forEach(program => {
+            const card = document.createElement("div");
+            card.className = "program-card";
+            card.innerHTML = `<h3>${program.title}</h3><p>${program.description}</p>`;
+            programGrid.appendChild(card);
+          });
+        }
+
+        const pricingGrid = document.getElementById("pricing-grid");
+        if (pricingGrid && Array.isArray(data.pricing)) {
+          pricingGrid.innerHTML = "";
+          data.pricing.forEach(plan => {
+            const card = document.createElement("div");
+            card.className = `price-card ${plan.featured ? 'featured' : ''}`;
+            const featuresHTML = Array.isArray(plan.features) ? plan.features.map(f => `<li>${f}</li>`).join('') : '';
+            card.innerHTML = `
+              <div>
+                <h3>${plan.title}</h3>
+                <div class="price">${plan.price}</div>
+                <ul class="features">${featuresHTML}</ul>
+              </div>
+              <a href="https://wa.me/923398831031?text=Hello%20Forge%20Fitness,%20I%20want%20to%20choose%20the%20${encodeURIComponent(plan.title)}%20plan." target="_blank" class="card-choose-btn">Choose Plan</a>
+            `;
+            pricingGrid.appendChild(card);
+          });
+        }
+      } catch (error) {
+        console.log("Error loading data:", error);
+      }
+    }
+  </script>
 </body>
 </html>
