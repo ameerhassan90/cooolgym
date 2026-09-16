@@ -4,149 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FORGE FITNESS CLUB</title>
+  
+  <!-- Google Fonts & External Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- Custom CSS file link -->
-  <link rel="stylesheet" href="/css/style.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { background: #060913; color: #fff; font-family: "Outfit", sans-serif; line-height: 1.6; }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    .container { width: min(1180px, 92%); margin: auto; }
-    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: rgba(6, 9, 19, 0.92); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .nav-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-size: 25px; font-weight: 900; letter-spacing: 1px; }
-    .logo span { color: #ff4d00; }
-    .nav-links { display: flex; align-items: center; gap: 30px; }
-    .nav-links a { font-size: 15px; font-weight: 600; color: #d9dce5; transition: 0.25s; }
-    .nav-links a:hover { color: #ff5a00; }
-    .admin-link { padding: 10px 17px; border: 1px solid #ff4d00; border-radius: 8px; color: #fff !important; }
-    .admin-link:hover { background: #ff4d00; }
-    .menu-btn { display: none; border: 0; background: none; color: white; font-size: 28px; cursor: pointer; }
-    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; background: linear-gradient(90deg, rgba(4,7,15,.96) 0%, rgba(4,7,15,.82) 45%, rgba(4,7,15,.35) 100%), url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=90&w=1800") center/cover no-repeat; }
-    .hero-content { max-width: 720px; padding-top: 80px; }
-    .hero-tag { display: inline-block; color: #ff5a00; font-size: 14px; font-weight: 800; letter-spacing: 3px; margin-bottom: 18px; }
-    .hero h1 { font-size: clamp(48px, 8vw, 92px); line-height: .95; font-weight: 900; letter-spacing: -3px; margin-bottom: 25px; }
-    .hero h1 span { color: #ff4d00; }
-    .hero p { max-width: 650px; color: #d2d5df; font-size: 18px; margin-bottom: 32px; }
-    .buttons { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 23px; border-radius: 8px; font-weight: 800; transition: .25s; }
-    .btn-primary { background: #ff4d00; color: white; }
-    .btn-primary:hover { background: #ff6500; transform: translateY(-2px); }
-    .btn-secondary { border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.04); }
-    .btn-secondary:hover { background: rgba(255,255,255,.1); }
-    .stats { border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); background: #0a0e18; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .stat { padding: 28px 15px; text-align: center; border-right: 1px solid rgba(255,255,255,.08); }
-    .stat:last-child { border-right: 0; }
-    .stat strong { display: block; font-size: 30px; font-weight: 900; color: #ff4d00; }
-    .stat span { color: #aeb4c2; font-size: 14px; }
-    .section { padding: 100px 0; }
-    .section-heading { max-width: 700px; margin-bottom: 50px; }
-    .eyebrow { color: #ff4d00; font-size: 13px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
-    .section-heading h2 { font-size: clamp(35px, 5vw, 58px); line-height: 1; margin-bottom: 18px; }
-    .section-heading p { color: #aeb4c2; font-size: 16px; }
-    #trainers { scroll-margin-top: 90px; background: #080c15; }
-    .trainer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
-    .trainer-card { background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 15px; overflow: hidden; transition: .3s; }
-    .trainer-card:hover { transform: translateY(-6px); border-color: rgba(255,77,0,.5); }
-    .trainer-image { width: 100%; height: 390px; object-fit: cover; }
-    .trainer-info { padding: 25px; }
-    .trainer-info h3 { font-size: 25px; margin-bottom: 4px; }
-    .trainer-role { color: #ff4d00; font-weight: 700; font-size: 14px; margin-bottom: 13px; }
-    .trainer-bio { color: #aeb4c2; font-size: 15px; }
-    .loading { color: #aeb4c2; padding: 30px; background: #101521; border-radius: 12px; }
-    #why-forge { scroll-margin-top: 90px; }
-    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .why-card { padding: 30px; background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; }
-    .why-number { font-size: 14px; color: #ff4d00; font-weight: 900; margin-bottom: 18px; }
-    .why-card h3 { font-size: 23px; margin-bottom: 10px; }
-    .why-card p { color: #aeb4c2; font-size: 15px; }
-    .program-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .program-card { padding: 30px; background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; }
-    .program-card h3 { font-size: 23px; margin-bottom: 12px; }
-    .program-card p { color: #aeb4c2; font-size: 15px; }
-    .pricing-section { background: #080c15; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .price-card { padding: 32px; background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 15px; display: flex; flex-direction: column; justify-content: space-between; }
-    .price-card.featured { border-color: #ff4d00; transform: translateY(-7px); }
-    .price-card h3 { font-size: 23px; margin-bottom: 15px; }
-    .price { font-size: 32px; font-weight: 900; color: #ff4d00; margin-bottom: 22px; }
-    .features { list-style: none; margin-bottom: 25px; }
-    .features li { color: #c4c8d1; margin: 10px 0; padding-left: 20px; position: relative; font-size: 14px; }
-    .features li::before { content: "✓"; color: #ff4d00; position: absolute; left: 0; font-weight: 900; }
-    
-    /* Plan ke andar wala Theme-Matched WhatsApp Button style */
-    .card-choose-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      background: rgba(255, 77, 0, 0.1);
-      border: 1px solid #ff4d00;
-      color: #fff;
-      padding: 13px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 15px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      margin-top: auto;
-    }
-    .card-choose-btn:hover {
-      background: #ff4d00;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3);
-    }
-    .card-choose-btn svg {
-      fill: #ff4d00;
-      transition: fill 0.3s ease;
-    }
-    .card-choose-btn:hover svg {
-      fill: #fff;
-    }
-
-    #contact { scroll-margin-top: 90px; }
-    .contact-box { background: linear-gradient(135deg, rgba(255,77,0,.12), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 45px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-    .contact-box h2 { font-size: 42px; line-height: 1; margin-bottom: 15px; }
-    .contact-box p { color: #aeb4c2; }
-    .contact-details { display: flex; flex-direction: column; gap: 18px; justify-content: center; }
-    .contact-item span { display: block; color: #ff4d00; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-    .contact-item strong { font-size: 17px; }
-    footer { padding: 30px 0; border-top: 1px solid rgba(255,255,255,.08); color: #777e8d; font-size: 14px; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-    @media (max-width: 850px) {
-      .menu-btn { display: block; }
-      .nav-links { display: none; position: absolute; top: 78px; left: 0; width: 100%; padding: 20px; flex-direction: column; align-items: flex-start; background: #080c15; border-bottom: 1px solid rgba(255,255,255,.08); }
-      .nav-links.active { display: flex; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat:nth-child(2) { border-right: 0; }
-      .trainer-grid, .program-grid, .pricing-grid, .why-grid, .contact-box { grid-template-columns: 1fr; }
-      .price-card.featured { transform: none; }
-      .trainer-image { height: 350px; }
-    }
-    @media (max-width: 550px) {
-      .hero h1 { letter-spacing: -2px; }
-      .hero p { font-size: 16px; }
-      .section { padding: 75px 0; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .stat { padding: 22px 8px; }
-      .stat strong { font-size: 25px; }
-      .contact-box { padding: 28px; }
-      .contact-box h2 { font-size: 34px; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Navigation Bar -->
   <nav>
     <div class="container nav-inner">
       <a href="#home" class="logo">FORGE <span>FITNESS</span></a>
-      <button class="menu-btn" id="menu-btn">☰</button>
+      <button class="menu-btn" id="menu-btn" aria-label="Toggle Navigation Menu">☰</button>
       <div class="nav-links" id="nav-links">
         <a href="#home">Home</a>
         <a href="#trainers">Trainers</a>
@@ -154,12 +28,13 @@
         <a href="#programs">Programs</a>
         <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
-        <a href="/admin" class="admin-link">Admin Login</a>
+        <a href="#login-section" class="admin-link">Admin Login</a>
       </div>
     </div>
   </nav>
 
   <main id="home">
+    <!-- Hero Section -->
     <section class="hero">
       <div class="container">
         <div class="hero-content">
@@ -174,6 +49,7 @@
       </div>
     </section>
 
+    <!-- Key Metrics Stats -->
     <section class="stats">
       <div class="container stats-grid">
         <div class="stat"><strong id="trainer-stat">—</strong><span>Professional Trainers</span></div>
@@ -183,6 +59,7 @@
       </div>
     </section>
 
+    <!-- Trainers Team Section -->
     <section class="section" id="trainers">
       <div class="container">
         <div class="section-heading">
@@ -196,6 +73,7 @@
       </div>
     </section>
 
+    <!-- Core Features Section -->
     <section class="section" id="why-forge">
       <div class="container">
         <div class="section-heading">
@@ -211,6 +89,7 @@
       </div>
     </section>
 
+    <!-- Programs Grid Section -->
     <section class="section" id="programs">
       <div class="container">
         <div class="section-heading">
@@ -224,6 +103,7 @@
       </div>
     </section>
 
+    <!-- Pricing / Membership Grid -->
     <section class="section pricing-section" id="pricing">
       <div class="container">
         <div class="section-heading">
@@ -237,6 +117,51 @@
       </div>
     </section>
 
+    <!-- Interactive Admin Login Section (With Animated Bag Character) -->
+    <section class="section" id="login-section">
+      <div class="container flex-center">
+        <!-- Interactive Animated Character Layer -->
+        <div class="character-wrapper" id="characterWrapper">
+          <div class="character" id="character">
+            <div class="character-head">
+              <div class="eyes">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+              </div>
+            </div>
+            <div class="character-body"></div>
+          </div>
+        </div>
+
+        <!-- Login Card Form -->
+        <div class="login-card">
+          <div class="brand-header">
+            <h1>FORGE <span class="highlight">FITNESS</span></h1>
+            <p class="subtitle">Admin Dashboard Login</p>
+          </div>
+
+          <form id="loginForm">
+            <div class="input-box">
+              <label for="username">Username</label>
+              <input type="text" id="username" placeholder="Enter username" required autocomplete="off">
+            </div>
+
+            <div class="input-box">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="Enter password" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Login</button>
+          </form>
+
+          <div class="success-banner" id="successBanner">
+            <span>SUCCESS! Welcome Back</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Location Box -->
     <section class="section" id="contact">
       <div class="container">
         <div class="contact-box">
@@ -253,141 +178,20 @@
         </div>
       </div>
     </section>
-  </main><footer>
+  </main>
+
+  <!-- Footer -->
+  <footer>
     <div class="container footer-inner">
-      <div>© <span id="year"></span> FORGE FITNESS CLUB</div>
+      <div>© <span id="year">2026</span> FORGE FITNESS CLUB</div>
       <div>Train Hard. Stay Strong.</div>
     </div>
   </footer>
 
-  <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/923398831031?text=Hello%20Forge%20Fitness" class="whatsapp-float" target="_blank">💬</a>
+  <!-- Floating Action WhatsApp CTA -->
+  <a href="https://wa.me/923398831031?text=Hello%20Forge%20Fitness" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">💬</a>
 
-  <script>
-    const menuBtn = document.getElementById("menu-btn");
-    const navLinks = document.getElementById("nav-links");
-
-    menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
-
-    document.querySelectorAll(".nav-links a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-      });
-    });
-
-    async function loadWebsiteData() {
-      try {
-        const response = await fetch("/api/data");
-        if (!response.ok) {
-          throw new Error("Failed to load website data");
-        }
-        const data = await response.json();
-
-        if (data.site) {
-          document.title = data.site.name || "FORGE FITNESS CLUB";
-          const description = document.getElementById("hero-description");
-          if (description && data.site.description) {
-            description.textContent = data.site.description;
-          }
-          const email = document.getElementById("contact-email");
-          if (email && data.site.email) {
-            email.textContent = data.site.email;
-          }
-          const phone = document.getElementById("contact-phone");
-          if (phone && data.site.phone) {
-            phone.textContent = data.site.phone;
-          }
-          const address = document.getElementById("contact-address");
-          if (address && data.site.address) {
-            address.textContent = data.site.address;
-          }
-        }
-
-        const trainerGrid = document.getElementById("trainer-grid");
-        if (trainerGrid) {
-          trainerGrid.innerHTML = "";
-          const trainers = Array.isArray(data.trainers) ? data.trainers : [];
-          document.getElementById("trainer-stat").textContent = trainers.length + "+";
-
-          if (trainers.length === 0) {
-            trainerGrid.innerHTML = `<div class="loading">No trainers available yet.</div>`;
-          } else {
-            trainers.forEach(trainer => {
-              const card = document.createElement("div");
-              card.className = "trainer-card";
-              card.innerHTML = `
-                <img src="${trainer.image || 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=800'}" alt="${trainer.name}" class="trainer-image">
-                <div class="trainer-info">
-                  <h3>${trainer.name}</h3>
-                  <div class="trainer-role">${trainer.role}</div>
-                  <p class="trainer-bio">${trainer.bio || ''}</p>
-                </div>
-              `;
-              trainerGrid.appendChild(card);
-            });
-          }
-        }
-
-        const programGrid = document.getElementById("program-grid");
-        if (programGrid) {
-          programGrid.innerHTML = "";
-          const programs = Array.isArray(data.programs) ? data.programs : [];
-          if (programs.length === 0) {
-            programGrid.innerHTML = `<div class="loading">No programs available yet.</div>`;
-          } else {
-            programs.forEach(program => {
-              const card = document.createElement("div");
-              card.className = "program-card";
-              card.innerHTML = `
-                <h3>${program.title}</h3>
-                <p>${program.description}</p>
-              `;
-              programGrid.appendChild(card);
-            });
-          }
-        }
-
-        const pricingGrid = document.getElementById("pricing-grid");
-        if (pricingGrid) {
-          pricingGrid.innerHTML = "";
-          const plans = Array.isArray(data.pricing) ? data.pricing : [];
-          if (plans.length === 0) {
-            pricingGrid.innerHTML = `<div class="loading">No membership plans available yet.</div>`;
-          } else {
-            plans.forEach(plan => {
-              const card = document.createElement("div");
-              card.className = `price-card ${plan.featured ? 'featured' : ''}`;
-              let featuresHTML = '';
-              if (Array.isArray(plan.features)) {
-                featuresHTML = plan.features.map(f => `<li>${f}</li>`).join('');
-              }
-              
-              // Har plan ke neeche Theme-Matched WhatsApp button with SVG Icon
-              card.innerHTML = `
-                <div>
-                  <h3>${plan.title}</h3>
-                  <div class="price">${plan.price}</div>
-                  <ul class="features">${featuresHTML}</ul>
-                </div>
-                <a href="https://wa.me/923398831031?text=Hello%20Forge%20Fitness,%20I%20want%20to%20choose%20the%20${encodeURIComponent(plan.title)}%20plan." target="_blank" class="card-choose-btn">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448c-.63-.346-6.187 1.64-6.187 1.64zm10.048-3.729c1.558.94 3.327 1.451 5.145 1.452 5.518 0 10.012-4.494 10.014-10.015.002-2.678-1.042-5.192-2.94-7.091-1.899-1.899-4.414-2.942-7.093-2.944-5.518 0-10.013 4.494-10.015 10.013-.001 1.832.482 3.619 1.398 5.185l-.907 3.315 3.394-.891zm7.397-7.464c-.37-.186-2.188-1.079-2.527-1.203-.338-.124-.584-.186-.831.186-.247.371-.954 1.203-1.169 1.452-.215.247-.431.279-.8.093-.37-.185-1.562-.575-2.977-1.836-1.101-.982-1.843-1.745-2.058-2.116-.215-.37-.023-.57.162-.755.166-.165.37-.431.555-.647.185-.215.247-.37.37-.616.124-.247.062-.463-.031-.647-.093-.185-.831-2.004-1.139-2.743-.301-.722-.607-.624-.831-.635l-.707-.013c-.247 0-.648.093-.986.463-.338.37-1.292 1.261-1.292 3.075 0 1.814 1.325 3.567 1.509 3.813.185.246 2.607 3.982 6.315 5.584 3.708 1.602 3.708 1.069 4.377 1.002.669-.067 2.187-.894 2.496-1.758.309-.863.309-1.602.216-1.758-.092-.156-.339-.247-.709-.433z"/></svg>
-                  Choose Plan
-                </a>
-              `;
-              pricingGrid.appendChild(card);
-            });
-          }
-        }
-      } catch (error) {
-        console.error("Error loading website data:", error);
-      }
-    }
-
-    loadWebsiteData();
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <!-- Integrated Application Logic Script -->
+  <script src="script.js"></script>
 </body>
 </html>
