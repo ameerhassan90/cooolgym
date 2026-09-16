@@ -1,34 +1,264 @@
-/* Pricing Plan ke Neeche Wala WhatsApp Button (Theme Matched) */
+/* ==========================================
+   PRICING PLAN WHATSAPP BUTTON (THEME MATCHED)
+   ========================================== */
 .card-choose-btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   width: 100%;
+  max-width: 380px;
   background: rgba(255, 77, 0, 0.1);
   border: 1px solid #ff4d00;
-  color: #fff;
+  color: #ffffff;
   padding: 13px 20px;
   border-radius: 8px;
   font-weight: 700;
   font-size: 15px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: auto;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
+/* Shine Animation Layer */
+.card-choose-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+/* Hover State */
 .card-choose-btn:hover {
   background: #ff4d00;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 77, 0, 0.45);
 }
 
+.card-choose-btn:hover::before {
+  left: 100%;
+}
+
+/* Active Click State */
+.card-choose-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 77, 0, 0.3);
+}
+
+/* SVG Icon Animation */
 .card-choose-btn svg {
+  width: 20px;
+  height: 20px;
   fill: #ff4d00;
-  transition: fill 0.3s ease;
+  transition: transform 0.4s ease, fill 0.3s ease;
 }
 
 .card-choose-btn:hover svg {
-  fill: #fff;
+  fill: #ffffff;
+  transform: scale(1.15) rotate(8deg);
+}
+/* ==========================================
+   ANIMATED LOGIN PAGE & CHARACTER STYLES
+   ========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #06090e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Character Animation Layer */
+.character-wrapper {
+  position: relative;
+  z-index: 1;
+  margin-bottom: -35px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  will-change: transform;
+}
+
+.character {
+  width: 70px;
+  height: 90px;
+  position: relative;
+  transition: transform 0.4s ease;
+  backface-visibility: hidden;
+}
+
+.character-head {
+  width: 70px;
+  height: 60px;
+  background: #ff4757;
+  border-radius: 35px 35px 20px 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eyes {
+  display: flex;
+  gap: 15px;
+  transition: transform 0.3s ease;
+}
+
+.eye {
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: relative;
+}
+
+.eye::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #000;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+}
+
+.character-body {
+  width: 50px;
+  height: 30px;
+  background: #2f3542;
+  margin: 0 auto;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Dynamic Animation States */
+.character.look-away {
+  transform: translateY(-10px) rotate(180deg);
+}
+
+.character.peek-down {
+  transform: translateY(45px) scale(0.9);
+}
+
+/* Login Card Container */
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: #0d121d;
+  border: 1px solid #1a2332;
+  border-radius: 20px;
+  padding: 35px 25px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  text-align: center;
+  position: relative;
+}
+
+.brand-header h1 {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.brand-header h1.highlight {
+  color: #ff4757;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 25px;
+}
+
+.input-box {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.input-box label {
+  display: block;
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 15px;
+  background: #06090e;
+  border: 1px solid #1f2a3c;
+  border-radius: 10px;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-box input:focus {
+  border-color: #ff4757;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 13px;
+  background: #ff4757;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #ff3344;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+.success-banner {
+  display: none;
+  background: #2ed573;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 15px;
+  animation: popup 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popup {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
