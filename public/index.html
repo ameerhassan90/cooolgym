@@ -50,14 +50,13 @@
     .stat strong { display: block; font-size: 30px; font-weight: 900; color: #ff4d00; }
     .stat span { color: #aeb4c2; font-size: 14px; }
     
-    /* Content Sections */
+    /* Cards Layout */
     .section { padding: 100px 0; }
     .section-heading { max-width: 700px; margin-bottom: 50px; }
     .eyebrow { color: #ff4d00; font-size: 13px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
     .section-heading h2 { font-size: clamp(35px, 5vw, 58px); line-height: 1; margin-bottom: 18px; }
     .section-heading p { color: #aeb4c2; font-size: 16px; }
     
-    /* Cards Layout */
     #trainers { scroll-margin-top: 90px; background: #080c15; }
     .trainer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
     .trainer-card { background: #101521; border: 1px solid rgba(255,255,255,.08); border-radius: 15px; overflow: hidden; transition: .3s; }
@@ -93,7 +92,7 @@
     }
     .card-choose-btn:hover { background: #ff4d00; color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3); }
 
-    /* 3D ANIMATED ADMIN LOGIN MODAL STYLING */
+    /* ANIMATED ADMIN LOGIN MODAL STYLING */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(4, 7, 15, 0.85); backdrop-filter: blur(10px);
@@ -112,19 +111,24 @@
       position: absolute; top: 15px; right: 20px; font-size: 26px;
       color: #aeb4c2; cursor: pointer; background: none; border: none;
     }
+    
+    /* Interactive Avatar Animation Styling */
     .character-avatar {
-      width: 65px; height: 65px; background: #ff4d00; border-radius: 50%;
-      margin: 0 auto 18px; display: flex; align-items: center;
-      justify-content: center; transition: transform 0.3s ease;
-      box-shadow: 0 0 15px rgba(255,77,0,0.4);
+      width: 70px; height: 70px; background: #ff4d00; border-radius: 50%;
+      margin: 0 auto 20px; display: flex; align-items: center;
+      justify-content: center; transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255,77,0,0.4);
     }
-    .character-avatar .eyes { display: flex; gap: 10px; }
+    .character-avatar .eyes { display: flex; gap: 12px; }
     .character-avatar .eye {
-      width: 8px; height: 8px; background: #fff; border-radius: 50%;
-      transition: transform 0.2s ease;
+      width: 10px; height: 10px; background: #fff; border-radius: 50%;
+      transition: all 0.2s ease;
     }
-    .character-avatar.peek-down { transform: translateY(8px); }
-    .character-avatar.look-away { transform: rotate(180deg); }
+    
+    /* Keyframe movement classes */
+    .character-avatar.peek-down .eye { transform: translateY(3px); }
+    .character-avatar.look-away .eye { opacity: 0.1; }
+    .character-avatar.look-away { transform: scale(0.9); background: #331505; }
     
     .admin-form input {
       width: 100%; padding: 14px 16px; background: #060913; border: 1px solid rgba(255,255,255,0.12);
@@ -265,7 +269,6 @@
     </section>
   </main>
 
-  <!-- 3D ANIMATED ADMIN LOGIN MODAL -->
   <div class="modal-overlay" id="admin-modal">
     <div class="admin-modal">
       <button class="close-modal" id="close-admin">&times;</button>
@@ -307,13 +310,14 @@
         });
       }
 
-      // Admin Modal & Interactive 3D Avatar Animations
+      // Admin Modal Controls
       const openAdminBtn = document.getElementById('open-admin');
       const closeAdminBtn = document.getElementById('close-admin');
       const adminModal = document.getElementById('admin-modal');
       const characterAvatar = document.getElementById('character-avatar');
       const usernameInput = document.getElementById('username');
       const passwordInput = document.getElementById('password');
+      const loginForm = document.getElementById('admin-login-form');
 
       if (openAdminBtn && adminModal && closeAdminBtn) {
         openAdminBtn.addEventListener('click', () => adminModal.classList.add('active'));
@@ -323,6 +327,7 @@
         });
       }
 
+      // Avatar Interactive Eye Movements
       if (usernameInput && characterAvatar) {
         usernameInput.addEventListener('focus', () => {
           characterAvatar.classList.add('peek-down');
@@ -337,6 +342,15 @@
           characterAvatar.classList.remove('peek-down');
         });
         passwordInput.addEventListener('blur', () => characterAvatar.classList.remove('look-away'));
+      }
+
+      // Form Submit & Login Logic Fix
+      if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          // Aapka redirect ya admin portal URL yahan add hoga:
+          window.location.href = '/admin.html';
+        });
       }
 
       document.getElementById("year").textContent = new Date().getFullYear();
