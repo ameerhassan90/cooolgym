@@ -92,25 +92,60 @@
     }
     .card-choose-btn:hover { background: #ff4d00; color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3); }
 
-    /* MODAL OVERLAY STYLING */
+    /* Modal Styling */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(4, 7, 15, 0.88); backdrop-filter: blur(12px);
-      display: none; align-items: center; justify-content: center; z-index: 2000;
-      opacity: 0; transition: opacity 0.3s ease;
+      display: flex; align-items: center; justify-content: center; z-index: 2000;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
-    .modal-overlay.active { display: flex; opacity: 1; }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
     
     .admin-modal {
       background: #101521; border: 1px solid #ff4d00;
-      padding: 20px; border-radius: 20px; width: min(520px, 95%);
-      position: relative; box-shadow: 0 0 40px rgba(255, 77, 0, 0.25);
-      min-height: 520px; overflow: hidden;
+      padding: 30px 25px; border-radius: 20px; width: min(440px, 92%);
+      position: relative; box-shadow: 0 0 40px rgba(255, 77, 0, 0.25); text-align: center;
     }
     .close-modal {
-      position: absolute; top: 12px; right: 18px; font-size: 28px;
+      position: absolute; top: 15px; right: 20px; font-size: 28px;
       color: #aeb4c2; cursor: pointer; background: none; border: none; z-index: 100;
     }
+
+    /* 3D Interactive Character Element */
+    .character-container {
+      width: 100px; height: 100px; margin: 0 auto 15px;
+      position: relative; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,77,0,0.2) 0%, rgba(16,21,33,0) 70%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .character-head {
+      width: 70px; height: 70px; background: #161e2e; border: 2px solid #ff4d00;
+      border-radius: 50%; position: relative; display: flex; align-items: center;
+      justify-content: center; box-shadow: 0 0 20px rgba(255, 77, 0, 0.3);
+      transition: transform 0.25s ease;
+    }
+    .eyes { display: flex; gap: 16px; }
+    .eye { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: relative; transition: all 0.25s ease; }
+    .eye::after { content: ''; position: absolute; width: 5px; height: 5px; background: #ff4d00; border-radius: 50%; top: 3px; left: 3px; }
+    
+    /* Animation states */
+    .focus-user .eye { transform: translateY(3px); }
+    .focus-pass .eye { transform: scaleY(0.1); background: #ff4d00; }
+    
+    .input-box { margin-bottom: 16px; text-align: left; }
+    .input-box label { display: block; font-size: 13px; font-weight: 700; color: #aeb4c2; margin-bottom: 6px; }
+    .input-box input {
+      width: 100%; padding: 12px 15px; background: #060913; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; color: #fff; font-size: 15px; outline: none; transition: 0.3s;
+    }
+    .input-box input:focus { border-color: #ff4d00; }
+
+    .submit-btn {
+      width: 100%; padding: 14px; background: #ff4d00; border: none;
+      border-radius: 10px; color: #fff; font-weight: 800; font-size: 16px;
+      cursor: pointer; transition: 0.3s; margin-top: 10px;
+    }
+    .submit-btn:hover { background: #ff6500; transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255,77,0,0.4); }
 
     #contact { scroll-margin-top: 90px; }
     .contact-box { background: linear-gradient(135deg, rgba(255,77,0,.12), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 45px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -239,10 +274,34 @@
     </section>
   </main>
 
+  <!-- ANIMATED LOGIN MODAL -->
   <div class="modal-overlay" id="admin-modal">
     <div class="admin-modal">
       <button class="close-modal" id="close-admin">&times;</button>
-      <div id="visme-container"></div>
+      
+      <div class="character-container">
+        <div class="character-head" id="char-head">
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 4px;">Admin Portal</h3>
+      <p style="color: #aeb4c2; font-size: 13px; margin-bottom: 20px;">Enter credentials to access admin dashboard</p>
+
+      <form id="admin-form">
+        <div class="input-box">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Admin ID" required autocomplete="username">
+        </div>
+        <div class="input-box">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="submit-btn">Login to Dashboard</button>
+      </form>
     </div>
   </div>
 
@@ -255,7 +314,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Navigation Toggle
+      // Mobile Navigation Menu Toggle
       const menuBtn = document.getElementById("menu-btn");
       const navLinks = document.getElementById("nav-links");
       if (menuBtn && navLinks) {
@@ -265,57 +324,56 @@
         });
       }
 
-      // Admin Modal & Visme 3D Dynamic Triggering
+      // Modal Controls
       const openAdminBtn = document.getElementById('open-admin');
       const closeAdminBtn = document.getElementById('close-admin');
       const adminModal = document.getElementById('admin-modal');
-      const vismeContainer = document.getElementById('visme-container');
+      const charHead = document.getElementById('char-head');
+      const userInput = document.getElementById('username');
+      const passInput = document.getElementById('password');
+      const adminForm = document.getElementById('admin-form');
 
-      function loadVisme3DForm() {
-        vismeContainer.innerHTML = `
-          <div class="visme_d" 
-               data-title="Email Capture Form Template" 
-               data-url="192189" 
-               data-domain="forms" 
-               data-full-page="false" 
-               data-min-height="500px" 
-               data-form-id="192189">
-          </div>
-        `;
-
-        const oldScript = document.getElementById('visme-embed-script');
-        if (oldScript) oldScript.remove();
-
-        const script = document.createElement('script');
-        script.id = 'visme-embed-script';
-        script.src = 'https://visme.co/forms/visme-forms-embed.js';
-        script.async = true;
-        document.body.appendChild(script);
-      }
-
-      if (openAdminBtn && adminModal && closeAdminBtn) {
-        openAdminBtn.addEventListener('click', () => {
-          adminModal.classList.add('active');
-          loadVisme3DForm();
-        });
-
-        closeAdminBtn.addEventListener('click', () => {
+      const closeModal = () => {
+        if (adminModal) {
           adminModal.classList.remove('active');
-        });
+          if (adminForm) adminForm.reset();
+          if (charHead) charHead.className = 'character-head';
+        }
+      };
 
-        adminModal.addEventListener('click', (e) => {
-          if (e.target === adminModal) adminModal.classList.remove('active');
+      if (openAdminBtn && adminModal) {
+        openAdminBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          adminModal.classList.add('active');
         });
       }
 
-      // Visme submission redirect
-      window.addEventListener('message', (e) => {
-        if (e.data && (e.data.type === 'visme_form_submit' || e.data.event === 'submit')) {
-          setTimeout(() => {
-            window.location.href = '/admin.html';
-          }, 1200);
-        }
-      });
+      if (closeAdminBtn) closeAdminBtn.addEventListener('click', closeModal);
+      
+      if (adminModal) {
+        adminModal.addEventListener('click', (e) => {
+          if (e.target === adminModal) closeModal();
+        });
+      }
+
+      // 3D Avatar Focus Reactive Animations
+      if (userInput && charHead) {
+        userInput.addEventListener('focus', () => charHead.className = 'character-head focus-user');
+        userInput.addEventListener('blur', () => charHead.className = 'character-head');
+      }
+
+      if (passInput && charHead) {
+        passInput.addEventListener('focus', () => charHead.className = 'character-head focus-pass');
+        passInput.addEventListener('blur', () => charHead.className = 'character-head');
+      }
+
+      // Admin Login Navigation
+      if (adminForm) {
+        adminForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          window.location.href = '/admin.html';
+        });
+      }
 
       document.getElementById("year").textContent = new Date().getFullYear();
       loadWebsiteData();
@@ -382,7 +440,7 @@
           });
         }
       } catch (error) {
-        console.log("Error loading data:", error);
+        console.log("Error loading dynamic site data:", error);
       }
     }
   </script>
