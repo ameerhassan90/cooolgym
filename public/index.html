@@ -8,10 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
+  <!-- Visme 3D Character Player Script (Async loaded with backup initialization) -->
+  <script class="visme_s" src="https://visme.co/forms/visme-forms-embed.js" async></script>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { background: #060913; color: #fff; font-family: "Outfit", sans-serif; line-height: 1.6; }
+    body { background: #060913; color: #fff; font-family: "Outfit", sans-serif; line-height: 1.6; overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
     .container { width: min(1180px, 92%); margin: auto; }
@@ -50,7 +53,7 @@
     .stat strong { display: block; font-size: 30px; font-weight: 900; color: #ff4d00; }
     .stat span { color: #aeb4c2; font-size: 14px; }
     
-    /* Cards Layout */
+    /* Content Sections */
     .section { padding: 100px 0; }
     .section-heading { max-width: 700px; margin-bottom: 50px; }
     .eyebrow { color: #ff4d00; font-size: 13px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
@@ -92,56 +95,26 @@
     }
     .card-choose-btn:hover { background: #ff4d00; color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3); }
 
-    /* ANIMATED ADMIN LOGIN MODAL STYLING */
+    /* AUDIT FIXED: ANIMATED MODAL & CONTAINER BUG FIXES */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(4, 7, 15, 0.85); backdrop-filter: blur(10px);
+      background: rgba(4, 7, 15, 0.88); backdrop-filter: blur(12px);
       display: none; align-items: center; justify-content: center; z-index: 2000;
+      opacity: 0; transition: opacity 0.3s ease;
     }
-    .modal-overlay.active { display: flex; }
+    .modal-overlay.active { display: flex; opacity: 1; }
     .admin-modal {
-      background: #101521; border: 1px solid rgba(255,77,0,0.4);
-      padding: 40px; border-radius: 16px; width: min(420px, 90%);
-      position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-      text-align: center;
+      background: #101521; border: 1px solid rgba(255,77,0,0.5);
+      padding: 20px; border-radius: 18px; width: min(480px, 92%);
+      position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+      max-height: 90vh; overflow-y: auto;
     }
-    .admin-modal h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; color: #fff; }
-    .admin-modal p.admin-subtitle { color: #aeb4c2; font-size: 14px; margin-bottom: 25px; }
     .close-modal {
-      position: absolute; top: 15px; right: 20px; font-size: 26px;
-      color: #aeb4c2; cursor: pointer; background: none; border: none;
+      position: absolute; top: 15px; right: 20px; font-size: 28px;
+      color: #aeb4c2; cursor: pointer; background: none; border: none; z-index: 100;
     }
-    
-    /* Interactive Avatar Animation Styling */
-    .character-avatar {
-      width: 70px; height: 70px; background: #ff4d00; border-radius: 50%;
-      margin: 0 auto 20px; display: flex; align-items: center;
-      justify-content: center; transition: all 0.3s ease;
-      box-shadow: 0 0 20px rgba(255,77,0,0.4);
-    }
-    .character-avatar .eyes { display: flex; gap: 12px; }
-    .character-avatar .eye {
-      width: 10px; height: 10px; background: #fff; border-radius: 50%;
-      transition: all 0.2s ease;
-    }
-    
-    /* Keyframe movement classes */
-    .character-avatar.peek-down .eye { transform: translateY(3px); }
-    .character-avatar.look-away .eye { opacity: 0.1; }
-    .character-avatar.look-away { transform: scale(0.9); background: #331505; }
-    
-    .admin-form input {
-      width: 100%; padding: 14px 16px; background: #060913; border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px; color: #fff; margin-bottom: 16px; font-family: inherit; outline: none; font-size: 15px;
-    }
-    .admin-form input:focus { border-color: #ff4d00; }
-    .admin-form button {
-      width: 100%; padding: 14px; background: #ff4d00; border: none;
-      border-radius: 8px; color: #fff; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.25s;
-    }
-    .admin-form button:hover { background: #ff6500; box-shadow: 0 4px 15px rgba(255, 77, 0, 0.4); }
+    .visme_d { min-height: 520px; width: 100%; }
 
-    /* Contact & Footer */
     #contact { scroll-margin-top: 90px; }
     .contact-box { background: linear-gradient(135deg, rgba(255,77,0,.12), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 45px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
     .contact-box h2 { font-size: 42px; line-height: 1; margin-bottom: 15px; }
@@ -269,25 +242,19 @@
     </section>
   </main>
 
+  <!-- AUDIT FIXED: REEL EXACT 3D ANIMATION MODAL -->
   <div class="modal-overlay" id="admin-modal">
     <div class="admin-modal">
       <button class="close-modal" id="close-admin">&times;</button>
       
-      <div class="character-avatar" id="character-avatar">
-        <div class="eyes">
-          <div class="eye"></div>
-          <div class="eye"></div>
-        </div>
+      <!-- 3D Visme Character Animation -->
+      <div class="visme_d" 
+           data-title="Email Capture Form Template" 
+           data-domain="forms" 
+           data-full-page="false" 
+           data-min-height="500px" 
+           data-form-id="192189">
       </div>
-
-      <h3>Admin Portal Login</h3>
-      <p class="admin-subtitle">Enter credentials to access management dashboard</p>
-
-      <form class="admin-form" id="admin-login-form">
-        <input type="text" id="username" placeholder="Username / Admin ID" required autocomplete="off">
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Access Dashboard</button>
-      </form>
     </div>
   </div>
 
@@ -310,48 +277,34 @@
         });
       }
 
-      // Admin Modal Controls
+      // Modal Triggers + Dynamic Script Reload Fix
       const openAdminBtn = document.getElementById('open-admin');
       const closeAdminBtn = document.getElementById('close-admin');
       const adminModal = document.getElementById('admin-modal');
-      const characterAvatar = document.getElementById('character-avatar');
-      const usernameInput = document.getElementById('username');
-      const passwordInput = document.getElementById('password');
-      const loginForm = document.getElementById('admin-login-form');
 
       if (openAdminBtn && adminModal && closeAdminBtn) {
-        openAdminBtn.addEventListener('click', () => adminModal.classList.add('active'));
+        openAdminBtn.addEventListener('click', () => {
+          adminModal.classList.add('active');
+          // Re-trigger Visme form script if not loaded on hidden DOM
+          if (window.VismeForms && typeof window.VismeForms.init === 'function') {
+            window.VismeForms.init();
+          }
+        });
+        
         closeAdminBtn.addEventListener('click', () => adminModal.classList.remove('active'));
         adminModal.addEventListener('click', (e) => {
           if (e.target === adminModal) adminModal.classList.remove('active');
         });
       }
 
-      // Avatar Interactive Eye Movements
-      if (usernameInput && characterAvatar) {
-        usernameInput.addEventListener('focus', () => {
-          characterAvatar.classList.add('peek-down');
-          characterAvatar.classList.remove('look-away');
-        });
-        usernameInput.addEventListener('blur', () => characterAvatar.classList.remove('peek-down'));
-      }
-
-      if (passwordInput && characterAvatar) {
-        passwordInput.addEventListener('focus', () => {
-          characterAvatar.classList.add('look-away');
-          characterAvatar.classList.remove('peek-down');
-        });
-        passwordInput.addEventListener('blur', () => characterAvatar.classList.remove('look-away'));
-      }
-
-      // Form Submit & Login Logic Fix
-      if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          // Aapka redirect ya admin portal URL yahan add hoga:
-          window.location.href = '/admin.html';
-        });
-      }
+      // Message Listener for Visme Submission Redirect Bug
+      window.addEventListener('message', function(event) {
+        if (event.data && (event.data.type === 'visme_form_submit' || event.data.action === 'submit')) {
+          setTimeout(() => {
+            window.location.href = '/admin.html';
+          }, 1500);
+        }
+      });
 
       document.getElementById("year").textContent = new Date().getFullYear();
       loadWebsiteData();
